@@ -1,14 +1,17 @@
+import 'package:doittoday/repositories/item_repository.dart';
 import 'package:doittoday/views/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'entities/item.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -18,23 +21,28 @@ class MyApp extends StatelessWidget {
         title: 'Do It Today',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 32, 93, 161)),
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 32, 93, 161)),
         ),
         home: Scaffold(
           body: const HomePage(),
           appBar: AppBar(
             backgroundColor: Colors.blue,
-           // title: const Text("Do It Today"),
+            // title: const Text("Do It Today"),
           ),
         ),
-        
       ),
-    
-      
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
-  //
+  ItemRepository repository = ItemRepository();
+
+  List<Item> nextEvents = <Item>[];
+
+  void loadNextEvents() {
+    nextEvents = repository.loadNextEvents();
+    notifyListeners();
+  }
 }
