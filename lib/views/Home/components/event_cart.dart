@@ -1,10 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:doittoday/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../entities/item.dart';
@@ -52,20 +47,19 @@ class EventCardItem extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(left: 8.0, right: 8.0),
+            margin: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Container(
-                      child: Text(
+                  child: Text(
                     item.name,
                     overflow: TextOverflow.ellipsis,
-                  )),
+                  ),
                 ),
                 Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(_formateDate(item.date))
@@ -112,13 +106,9 @@ class _EventCardState extends State<EventCard> {
     var state = context.watch<MyAppState>();
     return Flexible(
       child: Container(
-        constraints: BoxConstraints(
-          minHeight: 0,
-          //maxHeight: 200
-        ),
         decoration: BoxDecoration(
             border: Border.all(color: MyColors.greyBorder),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
         margin: const EdgeInsets.all(10.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -126,20 +116,20 @@ class _EventCardState extends State<EventCard> {
             Flexible(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: const [
                   EventCardTitle(),
                   EventCardList(),
                   SizedBox(height: 8.0)
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
               height: 1,
             ),
             TextButton(
                 onPressed: () => {state.loadNextEvents()},
-                child: Text("Abrir agenda"))
+                child: const Text("Abrir agenda"))
           ],
         ),
       ),

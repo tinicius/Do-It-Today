@@ -1,4 +1,4 @@
-import 'package:doittoday/views/Home/components/EventCard.dart';
+import 'package:doittoday/views/Home/components/event_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
