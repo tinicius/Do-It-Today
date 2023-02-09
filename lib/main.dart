@@ -30,6 +30,10 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.blue,
             // title: const Text("Do It Today"),
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => {},
+            child: Icon(Icons.add),
+          ),
         ),
       ),
     );

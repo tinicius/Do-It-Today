@@ -1,18 +1,14 @@
 enum ItemType {
- event, action 
-}
-
-enum ItemStatus {
-  done, open
+  open, waiting, doc, maybe, event
 }
 
 class Item {
   String name;
   String description;
   DateTime date;
+  bool done = false;
   
-  ItemStatus status = ItemStatus.open;
-  ItemType? type;
+  ItemType type = ItemType.open;
 
-  Item(this.name, this.description, this.date, [this.type]);
+  Item(this.name, this.description, this.date);
 }
