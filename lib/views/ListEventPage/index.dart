@@ -43,9 +43,9 @@ class _ListEventPageState extends State<ListEventPage> {
         backgroundColor: Colors.blue,
       ),
       body: ListView.builder(
-        itemCount: state.nextEvents.length,
+        itemCount: state.allEvents.length,
         itemBuilder: (context, index) {
-          Event event = state.nextEvents[index];
+          Event event = state.allEvents[index];
           return EventItem(event);
         },
       ),

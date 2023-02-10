@@ -21,4 +21,11 @@ class Event extends Item {
   EventStatus status;
 }
 
-class Action {}
+enum ActionStatus {
+done, open
+}
+
+class Action extends Item {
+  Action(super.name, super.description, [this.status = ActionStatus.open]);
+  ActionStatus status;
+}

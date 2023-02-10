@@ -119,7 +119,7 @@ class _EventCardState extends State<EventCard> {
               height: 1,
             ),
             TextButton(
-                onPressed: () => {state.loadNextEvents()},
+                onPressed: () => {},
                 child: const Text("Abrir agenda"))
           ],
         ),
