@@ -1,14 +1,24 @@
-enum ItemType {
-  open, waiting, doc, maybe, event
-}
-
 class Item {
   String name;
   String description;
-  DateTime date;
-  bool done = false;
-  
-  ItemType type = ItemType.open;
 
-  Item(this.name, this.description, this.date);
+  Item(this.name, this.description);
 }
+
+enum EventStatus { late, closed, open }
+
+class Event extends Item {
+  Event(super.name, super.description, this.date, [this.status = EventStatus.closed]) {
+    if (date.isBefore(DateTime.now())) {
+      status = EventStatus.open;
+    } else {
+      status = EventStatus.closed;
+    }
+    
+  }
+
+  DateTime date;
+  EventStatus status;
+}
+
+class Action {}

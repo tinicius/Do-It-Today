@@ -3,16 +3,16 @@ import 'dart:ffi';
 import '../entities/item.dart';
 
 abstract class ItemService {
-  List<Item> loadNextEvents();
+  List<Event> loadNextEvents();
 }
 
 class ItemLocalStorage implements ItemService {
   @override
-  List<Item> loadNextEvents() {
+  List<Event> loadNextEvents() {
     return [
-      Item("Festa", "description", DateTime.now()),
-      Item("Reunião", "description", DateTime.now()),
-      Item("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "description", DateTime.now()),
+      Event("Festa", "description", DateTime(2023, 2, 10, 8, 0)),
+      Event("Reunião", "description", DateTime.now()),
+      Event("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "description", DateTime.now()),
     ];
   }
 }

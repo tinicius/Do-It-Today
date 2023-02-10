@@ -5,7 +5,7 @@ class ItemRepository {
 
   ItemService service = ItemLocalStorage();
 
-  List<Item> loadNextEvents() {
+  List<Event> loadNextEvents() {
     return service.loadNextEvents();
   }
 

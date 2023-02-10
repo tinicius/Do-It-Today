@@ -6,11 +6,13 @@ import 'package:provider/provider.dart';
 import 'entities/item.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(home: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,22 @@ class MyApp extends StatelessWidget {
             // title: const Text("Do It Today"),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => {
+              showDialog(context: context, builder: (BuildContext context) => AlertDialog(
+                title: Text("Adicionar Item"),
+                content: TextField(),
+                actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+              ))
+            },
             child: Icon(Icons.add),
           ),
         ),
@@ -43,7 +60,7 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   ItemRepository repository = ItemRepository();
 
-  List<Item> nextEvents = <Item>[];
+  List<Event> nextEvents = <Event>[];
 
   void loadNextEvents() {
     nextEvents = repository.loadNextEvents();

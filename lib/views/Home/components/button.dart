@@ -1,12 +1,10 @@
-import 'package:doittoday/entities/item.dart';
-import 'package:doittoday/views/ListPage/index.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/my_colors.dart';
 
 class Button extends StatelessWidget {
   String text;
-  void onPressed;
+  Function onPressed;
   bool contrast;
 
   Button(
@@ -18,9 +16,7 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage(ItemType.open)))
-      },
+      onTap: () => onPressed(),
       child: Container(
         width: double.infinity,
         height: 56,

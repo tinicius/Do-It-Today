@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../entities/item.dart';
 import '../../../utils/my_colors.dart';
+import "../../../utils/formate_date.dart";
 
 class EventCardTitle extends StatelessWidget {
   const EventCardTitle({super.key});
@@ -27,18 +28,7 @@ class EventCardTitle extends StatelessWidget {
 class EventCardItem extends StatelessWidget {
   const EventCardItem(this.item, {super.key});
 
-  final Item item;
-
-  String _formateDate(DateTime date) {
-    String day =
-        date.day.toString().length < 2 ? "0${date.day}" : date.day.toString();
-    String month = date.month.toString().length < 2
-        ? "0${date.month}"
-        : date.month.toString();
-    String year = date.year.toString();
-
-    return "$day/$month/$year";
-  }
+  final Event item;
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +52,10 @@ class EventCardItem extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text(_formateDate(item.date))
+                    Text(formatDate(item.date))
                   ],
-                )
+                ),
+                Text(item.status.toString())
               ],
             ),
           ),
@@ -82,7 +73,7 @@ class EventCardList extends StatelessWidget {
     var state = context.watch<MyAppState>();
 
     return state.nextEvents.isEmpty
-        ? Text("Sem eventos próximos!")
+        ? const Text("Sem eventos próximos!")
         : ListView.builder(
             shrinkWrap: true,
             itemCount: state.nextEvents.length,
