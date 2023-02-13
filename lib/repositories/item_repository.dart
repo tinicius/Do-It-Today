@@ -19,4 +19,9 @@ class ItemRepository {
   Future<List<Event>> loadAllEvents() async {
     return await service.loadAllEvents();
   }
+
+  @override
+  Future<void> addEvent(Event event) async {
+    await service.addEvent(event);
+  }
 }
