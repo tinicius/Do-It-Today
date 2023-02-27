@@ -76,9 +76,9 @@ class EventCardList extends StatelessWidget {
         ? const Text("Sem eventos próximos!")
         : ListView.builder(
             shrinkWrap: true,
-            itemCount: state.nextEvents.length,
+            itemCount: state.allEvents.length,
             itemBuilder: (context, index) {
-              return EventCardItem(state.nextEvents[index]);
+              return EventCardItem(state.allEvents[index]);
             },
           );
   }
