@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ButtonMenu extends StatelessWidget {
+import '../../../main.dart';
+
+class ButtonMenu extends StatefulWidget {
   const ButtonMenu({
     super.key,
     required this.text,
@@ -11,17 +14,29 @@ class ButtonMenu extends StatelessWidget {
   final Widget dialog;
 
   @override
+  State<ButtonMenu> createState() => _ButtonMenuState();
+}
+
+class _ButtonMenuState extends State<ButtonMenu> {
+  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    ThemeData themeData = Theme.of(context);
+    ColorScheme colorScheme = themeData.colorScheme;
+
+    MyAppState state = context.watch<MyAppState>();
+
+    void onPressed() {
+      showDialog(context: context, builder: (context) => widget.dialog)
+          .then((value) => {state.refreshNextEvents()});
+    }
+
     return Container(
       padding: const EdgeInsets.only(top: 4, right: 8, bottom: 4),
       decoration: BoxDecoration(
-          color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+          color: colorScheme.primary, borderRadius: BorderRadius.circular(10)),
       alignment: Alignment.center,
       child: TextButton(
-        onPressed: () {
-          showDialog(context: context, builder: (context) => dialog);
-        },
+        onPressed: onPressed,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -31,7 +46,7 @@ class ButtonMenu extends StatelessWidget {
               size: 20,
             ),
             Text(
-              text,
+              widget.text,
               style: const TextStyle(color: Colors.white),
             ),
           ],

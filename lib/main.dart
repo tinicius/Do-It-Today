@@ -27,9 +27,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
     TextTheme textTheme = themeData.textTheme;
 
     TextStyle titleStyle = TextStyle(
-      color: Colors.white,
-      fontSize: textTheme.titleMedium?.fontSize
-    );
+        color: Colors.white, fontSize: textTheme.titleMedium?.fontSize);
 
     return AppBar(
       backgroundColor: colorScheme.primary,
@@ -77,11 +75,16 @@ class MyAppState extends ChangeNotifier {
   List<Event> nextEvents = <Event>[];
   List<Event> allEvents = <Event>[];
 
-  MyAppState() {
+  void refreshNextEvents() {
     repository.loadNextEvents().then((value) {
       nextEvents = value;
       notifyListeners();
     });
+  }
+
+  MyAppState() {
+
+    refreshNextEvents();
 
     repository.loadAllEvents().then((value) {
       allEvents = value;

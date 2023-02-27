@@ -1,9 +1,6 @@
-import 'package:doittoday/entities/action.dart';
-import 'package:doittoday/main.dart';
 import 'package:doittoday/repositories/item_repository.dart';
 import 'package:doittoday/utils/formate_date.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../entities/event.dart';
 
@@ -54,7 +51,6 @@ class _AddEventDialogState extends State<AddEventDialog> {
         children: [
           TextField(
             controller: name,
-         
             decoration: const InputDecoration(
                 border: OutlineInputBorder(), label: Text("Nome")),
           ),
