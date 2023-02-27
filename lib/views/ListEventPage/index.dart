@@ -1,13 +1,14 @@
-import 'package:doittoday/entities/item.dart';
 import 'package:doittoday/main.dart';
 import 'package:doittoday/utils/formate_date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EventItem extends StatelessWidget {
-  EventItem(this.event, {super.key});
+import '../../entities/event.dart';
 
-  Event event;
+class EventItem extends StatelessWidget {
+  const EventItem(this.event, {super.key});
+
+  final Event event;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class EventItem extends StatelessWidget {
       height: 60,
       width: double.infinity,
       padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(bottom: BorderSide())
       ),
       child: Row(

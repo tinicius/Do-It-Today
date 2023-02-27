@@ -1,5 +1,7 @@
-import 'package:doittoday/entities/item.dart';
+import 'package:doittoday/entities/action.dart';
 import 'package:doittoday/services/item_local_storage.dart';
+
+import '../entities/event.dart';
 
 class ItemRepository {
   ItemService service = ItemLocalStorage();
@@ -7,7 +9,8 @@ class ItemRepository {
   static const int COUNT = 5;
 
   Future<List<Event>> loadNextEvents() async {
-    return await service.loadNextEvents(COUNT);
+    List<Event> events = await service.loadNextEvents(COUNT);
+    return events;
   }
 
   @override
@@ -17,7 +20,8 @@ class ItemRepository {
 
   @override
   Future<List<Event>> loadAllEvents() async {
-    return await service.loadAllEvents();
+    List<Event> events = await service.loadAllEvents();
+    return events;
   }
 
   @override

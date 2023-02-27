@@ -6,14 +6,44 @@ import 'package:doittoday/views/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'entities/item.dart';
+import 'entities/action.dart';
+import 'entities/event.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MyApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(home: MyApp()));
+}
+
+class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarComponent({super.key});
+
+  static const title = "Title";
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
+    ColorScheme colorScheme = themeData.colorScheme;
+    TextTheme textTheme = themeData.textTheme;
+
+    return AppBar(
+      backgroundColor: colorScheme.background,
+      title: Text(title, style: textTheme.titleMedium),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final ThemeData themeData = ThemeData(
+    useMaterial3: true,
+    colorScheme:
+        ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 32, 93, 161)),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +52,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Do It Today',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 32, 93, 161)),
-        ),
-        home: Scaffold(
-          body: const HomePage(),
-          appBar: AppBar(
-            backgroundColor: Colors.blue,
-            // title: const Text("Do It Today"),
-          ),
-          
+        theme: themeData,
+        home: const Scaffold(
+          body: HomePage(),
+          appBar: AppBarComponent(),
           floatingActionButton: FloatingActionMenu(
             distance: 100,
-            children: [
-              ButtonMenu(text: "Evento", dialog: AddEventDialog())
-            ],
+            children: [ButtonMenu(text: "Evento", dialog: AddEventDialog())],
           ),
         ),
       ),

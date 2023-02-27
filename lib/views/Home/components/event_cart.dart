@@ -2,7 +2,8 @@ import 'package:doittoday/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../entities/item.dart';
+import '../../../entities/action.dart';
+import '../../../entities/event.dart';
 import '../../../utils/my_colors.dart';
 import "../../../utils/formate_date.dart";
 

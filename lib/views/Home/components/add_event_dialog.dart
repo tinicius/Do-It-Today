@@ -1,9 +1,11 @@
-import 'package:doittoday/entities/item.dart';
+import 'package:doittoday/entities/action.dart';
 import 'package:doittoday/main.dart';
 import 'package:doittoday/repositories/item_repository.dart';
 import 'package:doittoday/utils/formate_date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../entities/event.dart';
 
 class AddEventDialog extends StatefulWidget {
   const AddEventDialog({super.key});
@@ -24,7 +26,6 @@ class _AddEventDialogState extends State<AddEventDialog> {
 
   @override
   Widget build(BuildContext context) {
-      
     return AlertDialog(
       title: const Text("Evento"),
       actions: [
@@ -35,7 +36,7 @@ class _AddEventDialogState extends State<AddEventDialog> {
               style: TextStyle(color: Colors.red),
             )),
         TextButton(
-            onPressed: () {
+            onPressed: () async {
               Event event = Event(
                   name.text,
                   description.text,
@@ -43,18 +44,18 @@ class _AddEventDialogState extends State<AddEventDialog> {
                       time!.minute));
 
               ItemRepository repository = ItemRepository();
-              repository.addEvent(event);
-             repository.loadAllEvents().then((value) {
-              value.forEach((element) {print(element.name);});
-             });
+              await repository.addEvent(event);
+              repository.loadAllEvents();
             },
             child: const Text("Adicionar"))
       ],
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: name,
+         
+            decoration: const InputDecoration(
                 border: OutlineInputBorder(), label: Text("Nome")),
           ),
           const SizedBox(height: 10),

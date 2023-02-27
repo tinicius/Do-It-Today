@@ -1,60 +1,102 @@
-import '../entities/item.dart';
+import '../entities/action.dart';
+import 'package:localstore/localstore.dart';
+
+import '../entities/event.dart';
 
 abstract class ItemService {
   Future<List<Event>> loadNextEvents(int count);
   Future<List<Event>> loadAllEvents();
   Future<void> addEvent(Event event);
 
+
+  Future<void> addAction(Action action);
   Future<List<Action>> loadAllActions();
 }
 
 class ItemLocalStorage implements ItemService {
-  List<Event> allEvents = [
-    Event("Festa", "description", DateTime(2023, 2, 10, 8, 0)),
-    Event("Reunião", "description", DateTime.now()),
-    Event("a", "description", DateTime.now()),
-  ];
 
-  List<Action> allActions = [
-    Action("Ação 1", "Descrição"),
-    Action("Ação 1", "Descrição"),
-    Action("Ação 1", "Descrição"),
-    Action("Ação 1", "Descrição"),
-    Action("Ação 1", "Descrição"),
-    Action("Ação 1", "Descrição"),
-  ];
+  final db = Localstore.instance;
 
   @override
   Future<List<Event>> loadNextEvents(int count) async {
-    List<Event> nextEvents = [];
+    Map<String, dynamic>? items = await db.collection('events').get();
+    
+    List<Event> events = [];
 
-    if (count > allEvents.length) {
-      count = allEvents.length;
+    if (items != null) {
+      if (count > items.values.length) {
+        count = items.values.length;
+      }
+
+      int index = 0;
+
+      for (var element in items.values) { 
+        if (index < count) {
+          Map<String, dynamic> json = {
+            'name': element['name'],
+            'description': element['description'],
+            'date': element['date'],
+            'status': element['status']
+          };
+
+          events.add(Event.fromJson(json));
+        }
+
+        index++;
+      }
     }
 
-    for (var i = 0; i < count; i++) {
-      nextEvents.add(allEvents[i]);
-      await Future.delayed(const Duration(seconds: 1));
-    }
-
-    return nextEvents;
+    return events;
   }
 
   @override
   Future<List<Action>> loadAllActions() async {
-    await Future.delayed(Duration(seconds: 1 * allActions.length));
-    return allActions;
+  return [];
   }
 
   @override
   Future<void> addEvent(Event event) async {
-    await Future.delayed(const Duration(seconds: 5));
-    allEvents.add(event);
+    final id = db.collection("events").doc().id;
+
+    await db.collection('events').doc(id).set({
+      'name': event.name,
+      'description': event.description,
+      'date': event.date.millisecondsSinceEpoch,
+      'status': event.status.toString()
+    });
   }
 
   @override
   Future<List<Event>> loadAllEvents() async {
-    await Future.delayed(Duration(seconds: 1 * allEvents.length));
-    return allEvents;
+    Map<String, dynamic>? items = await db.collection('events').get();
+
+    List<Event> events  = [];
+
+    if (items != null) {
+      for (var element in items.values) {
+        Map<String, dynamic> json = {
+          'name': element['name'],
+          'description': element['description'],
+          'date': element['date'],
+          'status': element['status']
+        };
+
+        events.add(Event.fromJson(json));
+      }
+    }
+
+    return events;
+  }
+  
+  @override
+  Future<void> addAction(Action action) async {
+    final id = db.collection("events").doc().id;
+
+    // await db.collection('events').doc(id).set({
+    //   'name': event.name,
+    //   'description': event.description,
+    //   'date': event.date.millisecondsSinceEpoch,
+    //   'status': event.status.toString()
+    // });
   }
 }
