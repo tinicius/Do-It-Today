@@ -26,9 +26,14 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
     ColorScheme colorScheme = themeData.colorScheme;
     TextTheme textTheme = themeData.textTheme;
 
+    TextStyle titleStyle = TextStyle(
+      color: Colors.white,
+      fontSize: textTheme.titleMedium?.fontSize
+    );
+
     return AppBar(
-      backgroundColor: colorScheme.background,
-      title: Text(title, style: textTheme.titleMedium),
+      backgroundColor: colorScheme.primary,
+      title: Text(title, style: titleStyle),
     );
   }
 
