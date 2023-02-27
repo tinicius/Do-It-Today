@@ -1,3 +1,4 @@
+import 'package:doittoday/components/add_event_dialog.dart';
 import 'package:doittoday/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,13 @@ class _ListEventPageState extends State<ListEventPage> {
 
     return Scaffold(
       appBar: AppTheme.appBar(title: "Eventos"),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => {
+                showDialog(
+                        context: context,
+                        builder: (context) => const AddEventDialog())
+                    .then((value) => {setState(() => {})})
+              }),
       body: FutureBuilder(
         future: state.getAllEvents(),
         builder: (context, snapshot) {
@@ -28,6 +36,12 @@ class _ListEventPageState extends State<ListEventPage> {
           }
 
           if (ConnectionState.done == snapshot.connectionState) {
+            if (snapshot.data!.isEmpty) {
+              return Center(
+                  child: Text("Nenhum evento cadastrado!",
+                      style: AppTheme.textTheme.bodyLarge));
+            }
+
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {

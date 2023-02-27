@@ -1,7 +1,7 @@
 import 'package:doittoday/repositories/item_repository.dart';
 import 'package:doittoday/utils/theme.dart';
 import 'package:doittoday/views/Home/components/floating_action_menu.dart';
-import 'package:doittoday/views/Home/components/add_event_dialog.dart';
+import 'package:doittoday/components/add_event_dialog.dart';
 import 'package:doittoday/views/Home/components/button_menu.dart';
 import 'package:doittoday/views/Home/home.dart';
 import 'package:flutter/material.dart';
