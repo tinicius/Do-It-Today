@@ -16,7 +16,7 @@ class EventCardTitle extends StatelessWidget {
       child: Row(
         children: const [
           Text(
-            "Eventos",
+            "Próximos Eventos",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
           )
         ],
@@ -47,15 +47,11 @@ class EventCardItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(formatDate(item.date))
-                  ],
-                ),
-                Text(item.status.toString())
+                Text(formatDate(item.date)),
+                const SizedBox(width: 10),
+                Text(TimeOfDay.fromDateTime(item.date).format(context)),
+                const SizedBox(width: 10),
+                Text(Event.statusToStringMessage(item.status))
               ],
             ),
           ),
@@ -76,9 +72,9 @@ class EventCardList extends StatelessWidget {
         ? const Text("Sem eventos próximos!")
         : ListView.builder(
             shrinkWrap: true,
-            itemCount: state.allEvents.length,
+            itemCount: state.nextEvents.length,
             itemBuilder: (context, index) {
-              return EventCardItem(state.allEvents[index]);
+              return EventCardItem(state.nextEvents[index]);
             },
           );
   }
@@ -118,9 +114,7 @@ class _EventCardState extends State<EventCard> {
               color: Colors.black,
               height: 1,
             ),
-            TextButton(
-                onPressed: () => {},
-                child: const Text("Abrir agenda"))
+            TextButton(onPressed: () => {}, child: const Text("Abrir agenda"))
           ],
         ),
       ),

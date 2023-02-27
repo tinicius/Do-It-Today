@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Do It Today',
         theme: AppTheme.themeData,
-        home:  Scaffold(
+        home: Scaffold(
           body: const HomePage(),
           appBar: AppTheme.appBar(title: "Home"),
           floatingActionButton: const FloatingActionMenu(
@@ -43,7 +43,6 @@ class MyAppState extends ChangeNotifier {
   ItemRepository repository = ItemRepository();
 
   List<Event> nextEvents = <Event>[];
-  List<Event> allEvents = <Event>[];
 
   void refreshNextEvents() {
     repository.loadNextEvents().then((value) {
@@ -52,13 +51,12 @@ class MyAppState extends ChangeNotifier {
     });
   }
 
+  Future<List<Event>> getAllEvents() async {
+    List<Event> allEvents = await repository.loadAllEvents();
+    return allEvents;
+  }
+
   MyAppState() {
-
     refreshNextEvents();
-
-    repository.loadAllEvents().then((value) {
-      allEvents = value;
-      notifyListeners();
-    });
   }
 }

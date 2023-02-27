@@ -20,11 +20,26 @@ class _ListEventPageState extends State<ListEventPage> {
 
     return Scaffold(
       appBar: AppTheme.appBar(title: "Eventos"),
-      body: ListView.builder(
-        itemCount: state.allEvents.length,
-        itemBuilder: (context, index) {
-          Event event = state.allEvents[index];
-          return EventItem(event);
+      body: FutureBuilder(
+        future: state.getAllEvents(),
+        builder: (context, snapshot) {
+          if (ConnectionState.waiting == snapshot.connectionState) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (ConnectionState.done == snapshot.connectionState) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                Event event = snapshot.data![index];
+                return EventItem(event);
+              },
+            );
+          }
+
+          return Center(
+              child: Text("Erro ao carregar eventos!",
+                  style: AppTheme.textTheme.bodyLarge));
         },
       ),
     );

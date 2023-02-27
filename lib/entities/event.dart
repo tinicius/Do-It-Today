@@ -10,9 +10,12 @@ class Event {
     }
   }
 
-  static EventStatus _statusFromString() {
-    //TODO: Implement switch-case to ItemStatus
-    return EventStatus.open;
+  static String statusToStringMessage(EventStatus status) {
+    if (status == EventStatus.open) return "Aberto";
+    if (status == EventStatus.closed) return "Fechado";
+    if (status == EventStatus.late) return "Atrasado";
+
+    return "";
   }
 
   Event.fromJson(Map<String, dynamic> json)

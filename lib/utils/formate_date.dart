@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 String formatDate(DateTime date) {
   //TODO format year
   
@@ -13,4 +15,10 @@ String formatDate(DateTime date) {
   String year = date.year.toString();
 
   return "$day/$month/$year";
+}
+
+String formatHour(DateTime date) {
+  TimeOfDay time = TimeOfDay.fromDateTime(date);
+  
+  return "time.format(context)";
 }
